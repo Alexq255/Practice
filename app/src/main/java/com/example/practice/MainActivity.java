@@ -15,6 +15,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.security.PublicKey;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,10 +27,16 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView3;
     private FirebaseAuth mAuth;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
         email_login = findViewById(R.id.email_login);
         password_login = findViewById(R.id.password_login);
         loginbtn = findViewById(R.id.loginbtn);
@@ -36,9 +45,13 @@ public class MainActivity extends AppCompatActivity {
         textView3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent Intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(Intent);
+                FirebaseUser cUser = mAuth.getCurrentUser();
+
             }
+
         });
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,10 +64,12 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
-                                        Intent Intent = new Intent(MainActivity.this, Glavnaya.class);
-                                        startActivity(Intent);
+                                        Intent intent = new Intent(MainActivity.this, Glavnaya.class);
+                                        //FirebaseUser cUser = mAuth.getCurrentUser();
+                                        //intent.putExtra("UserData",cUser);
+                                        startActivity(intent);
                                     }else{
-                                        Toast.makeText(MainActivity.this, "Вась счетчик опломбировали войди на тп рф ",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, "Неверные данные",Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -62,5 +77,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+
     }
+
 }

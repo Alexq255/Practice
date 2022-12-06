@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 private EditText email_Register;
@@ -21,19 +25,38 @@ private EditText password_Register;
 private Button btn_register;
 private FirebaseAuth mAuth;
 
+CheckBox checker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         mAuth = FirebaseAuth.getInstance();
         email_Register = findViewById(R.id.email_register);
         password_Register = findViewById(R.id.password_register);
         btn_register = findViewById(R.id.btn_register);
 
-        btn_register.setOnClickListener(new View.OnClickListener() {
+        checker = findViewById(R.id.checker);
+        checker.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (checker.isChecked()){
+                    Button bg = (Button)btn_register;
+                    bg.setEnabled(true);
+
+                }else{
+                    Button bg = (Button)btn_register;
+                    bg.setEnabled(false);
+
+                }
+            }
+        });
+        btn_register.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+
             public void onClick(View view) {
+
                 if (email_Register.getText().toString().isEmpty()|| password_Register.getText().toString().isEmpty()){
                     Toast.makeText(RegisterActivity.this,"Поля пустые",Toast.LENGTH_SHORT).show();
             }else{
@@ -53,5 +76,13 @@ private FirebaseAuth mAuth;
 
             }
         });
+
+        Button b = (Button)btn_register;
+        b.setEnabled(false);
+        }
+
+    public void Licenge(View view) {
+        Intent intent = new Intent(RegisterActivity.this, Licenge.class);
+        startActivity(intent);
     }
 }
