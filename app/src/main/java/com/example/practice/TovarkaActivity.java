@@ -45,7 +45,7 @@ public class TovarkaActivity extends AppCompatActivity {
 
     private void init(){
         tovarList = findViewById(R.id.tovarList);
-        FindText = findViewById(R.id.FindText);
+        FindText = findViewById(R.id.Finder);
         listdata = new ArrayList<>();
         Countl = findViewById(R.id.Countl);
         listTemp = new ArrayList<TovarAddClass>();

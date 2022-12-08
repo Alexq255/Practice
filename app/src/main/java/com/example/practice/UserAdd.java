@@ -7,7 +7,7 @@ public class UserAdd {
 
     }
 
-    public UserAdd(String id, String name, String secname, String email,String image_id) {
+    public UserAdd(String id, String name, String secname, String email,String image_id ) {
         this.id = id;
         this.name = name;
         this.secname = secname;

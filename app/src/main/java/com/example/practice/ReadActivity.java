@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -27,9 +28,11 @@ private ListView listView;
 private ArrayAdapter<String> adapter;
 private List<String> listdata;
 private List<UserAdd> listTemp;
+private SearchView Finder;
 private DatabaseReference mBase;
 private String USERKEY = "User";
 private TextView textView9;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +40,24 @@ private TextView textView9;
         init();
         getDataFromDB();
         setOnclickItem();
+
+        Finder.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
     }
     private void init(){
         listView = findViewById(R.id.listView);
+        Finder = findViewById(R.id.Finder);
         listdata = new ArrayList<>();
         listTemp = new ArrayList<UserAdd>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listdata);

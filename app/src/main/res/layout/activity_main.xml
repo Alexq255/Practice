@@ -8,6 +8,22 @@
     tools:context=".MainActivity">
 
 
+    <ImageView
+        android:id="@+id/google_img2"
+        android:layout_width="255dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="40dp"
+        android:onClick="Reg"
+        android:layout_marginEnd="30dp"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.882"
+        app:srcCompat="@drawable/googlepro" />
+
     <TextView
         android:id="@+id/textView6"
         android:layout_width="196dp"
@@ -95,6 +111,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.348"
         app:srcCompat="@drawable/logo" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="250dp"
+        android:layout_height="67dp"
+        android:backgroundTint="#009688"
+        android:onClick="LoginByNumber"
+        android:text="Войти по номеру телефона"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.746" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
