@@ -4,38 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".ShopCartAct">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <TextView
+        android:id="@+id/AdminChose"
+        android:layout_width="389dp"
+        android:layout_height="32dp"
         android:background="#000000"
-        tools:context=".ReadActivity">
+        android:gravity="center"
+        android:text="Выберите заказ для редактирования"
+        android:textColor="#0BFF15"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.045" />
 
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="409dp"
-            android:layout_height="667dp"
-            android:background="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" >
+    <ListView
+        android:id="@+id/listkorzina"
+        android:layout_width="407dp"
+        android:layout_height="663dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="399dp"
-                android:layout_height="58dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="13dp"
-                android:gravity="center"
-                android:text="Корзина товаров"
-                android:textColor="#E91E63"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-        </ListView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/AdminRoleTitle"
+        android:layout_width="389dp"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:text="Вы вошли как Администратор"
+        android:textColor="#F44336"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.727"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

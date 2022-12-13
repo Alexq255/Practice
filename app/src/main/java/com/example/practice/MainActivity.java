@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, Glavnaya.class);
                     FirebaseUser cUser = mAuth.getCurrentUser();
                     intent.putExtra("UserData","Админ:"+cUser.getEmail().toString());
+                    intent.putExtra("Adm","1");
                     startActivity(intent);
 
                 }
@@ -137,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, SendOtpActivity.class);
         startActivity(intent);
     }
-
     public void Reg(View view) {
         Intent intent = new Intent(getApplicationContext(),RegisterActivity.class);
         startActivity(intent);

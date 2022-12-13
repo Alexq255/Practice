@@ -200,7 +200,7 @@
         android:layout_height="50dp"
         android:backgroundTint="#E91E63"
         android:onClick="AddTovar"
-        android:text="Добавь товар!"
+        android:text="Добавить товар"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.886"

@@ -7,10 +7,23 @@
     android:background="#000000"
     tools:context=".TovarkaActivity">
 
+    <SearchView
+        android:id="@+id/Finder"
+        android:layout_width="402dp"
+        android:layout_height="43dp"
+        android:background="#FFFFFF"
+        android:queryHint="Search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.147" />
+
     <TextView
         android:id="@+id/textView14"
-        android:layout_width="389dp"
-        android:layout_height="60dp"
+        android:layout_width="391dp"
+        android:layout_height="33dp"
         android:gravity="center"
         android:text="Список товаров"
         android:textColor="#E91E63"
@@ -25,8 +38,8 @@
 
     <ListView
         android:id="@+id/tovarList"
-        android:layout_width="401dp"
-        android:layout_height="581dp"
+        android:layout_width="407dp"
+        android:layout_height="554dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
@@ -34,9 +47,13 @@
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.684" />
+        app:layout_constraintVertical_bias="0.834">
+
+
+    </ListView>
 
     <TextView
         android:id="@+id/Countl"
@@ -54,18 +71,34 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.99" />
 
-    <EditText
-        android:id="@+id/FindText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+    <Button
+        android:id="@+id/SortBtn"
+        android:layout_width="404dp"
+        android:layout_height="49dp"
+        android:backgroundTint="#FF5722"
+        android:text="Сортировка по категориям"
+        android:onClick="SortByCat"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.076" />
+
+    <Button
+        android:id="@+id/SortClear"
+        android:layout_width="404dp"
+        android:layout_height="49dp"
+        android:backgroundTint="#FF5722"
+        android:onClick="SortClear"
+        android:text="Сбросить фильтрацию"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.076" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

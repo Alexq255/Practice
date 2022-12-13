@@ -75,6 +75,7 @@ public class Glavnaya extends AppCompatActivity {
         Intent i = getIntent();
         twAccount.setText(i.getStringExtra("UserData"));
 
+
     }
     private void saveUser()
     {
@@ -154,6 +155,7 @@ public class Glavnaya extends AppCompatActivity {
                 uploadUri = task.getResult();
                 saveUser();
 
+
             }
 
 
@@ -180,5 +182,18 @@ public class Glavnaya extends AppCompatActivity {
     public void AddTovar(View view) {
         Intent Intent = new Intent(Glavnaya.this, TovarAddAct.class);
         startActivity(Intent);
+    }
+
+
+    public void Prechanges(View view) {
+        Intent Intents = new Intent(Glavnaya.this, PrechangeActivity.class);
+        startActivity(Intents);
+    }
+
+    public void ClientOrderChangeActivity(View view) {
+        Intent Intentor = new Intent(Glavnaya.this, ShopCartAct.class);
+        Intentor.putExtra("Adm","1");
+        startActivity(Intentor);
+
     }
 }

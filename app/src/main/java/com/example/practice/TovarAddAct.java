@@ -11,8 +11,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,32 +32,95 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Locale;
 
 public class TovarAddAct extends AppCompatActivity {
-    private EditText editNazvanie,editDescriprion,editPrice;
+    private EditText editNazvanie,editDescriprion,editPrice,editWarranty,editCategory;
     private DatabaseReference mBase;
-    private String GROUPKEY = "Tovar";
+    private String GROUPKEY;
     private FirebaseAuth mAuth;
     private TextView twAccount;
     private Button saveAll,chooseImg;
     private ImageView imgViewAdd;
     private Uri uploadUri;
     private StorageReference mStorageRef;
+    private CheckBox CheckerAsic,CheckerProducts,CheckerSevices;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tovar_add);
         init();
+
+
     }
     private void init(){
         editNazvanie = findViewById(R.id.editNazvanie);
+        CheckerAsic = findViewById(R.id.CheckerAsic);
+        CheckerProducts = findViewById(R.id.CheckerProducts);
+        CheckerSevices = findViewById(R.id.CheckerServices);
         editDescriprion = findViewById(R.id.editDescription);
         editPrice = findViewById(R.id.editPrice);
-        mBase = FirebaseDatabase.getInstance().getReference(GROUPKEY);
+        editWarranty = findViewById(R.id.editWarranty);
+        editCategory = findViewById(R.id.editCategory);
+
         twAccount = findViewById(R.id.twAccount);
         imgViewAdd = findViewById(R.id.imgViewAdd);
         mStorageRef = FirebaseStorage.getInstance().getReference("Image_db");
+        CheckCategory();
     }
+    private void CheckCategory(){
+
+        CheckerAsic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (CheckerAsic.isChecked()){
+                    // SwitchNumber = 0;
+                    GROUPKEY = "Asic";
+                    mBase = FirebaseDatabase.getInstance().getReference(GROUPKEY);
+                    //asic
+
+                }else{
+
+
+                }
+            }
+        });
+        CheckerProducts.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (CheckerProducts.isChecked()){
+                    // SwitchNumber = 1;
+                    GROUPKEY = "Products";
+                    mBase = FirebaseDatabase.getInstance().getReference(GROUPKEY);
+                    //Products
+
+                }else{
+
+
+                }
+            }
+        });
+        CheckerSevices.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (CheckerSevices.isChecked()){
+                    //SwitchNumber = 2;
+                    GROUPKEY = "Services";
+                    mBase = FirebaseDatabase.getInstance().getReference(GROUPKEY);
+                    //Services
+
+                }else{
+
+
+                }
+            }
+        });
+
+    }
+
+
 
 
     private void saveData()
@@ -63,8 +129,12 @@ public class TovarAddAct extends AppCompatActivity {
         String nazvanie = editNazvanie.getText().toString();
         String description = editDescriprion.getText().toString();
         String fullPrice = editPrice.getText().toString();
-        TovarAddClass newTovarAdd = new TovarAddClass(id,nazvanie,description,fullPrice,uploadUri.toString());
-        if (!TextUtils.isEmpty(nazvanie)&&!TextUtils.isEmpty(description)&&!TextUtils.isEmpty(fullPrice)){
+        String warranty = editWarranty.getText().toString();
+        String Category = editCategory.getText().toString();
+
+        TovarAddClass newTovarAdd = new TovarAddClass(id,nazvanie,description,fullPrice,uploadUri.toString(),warranty,Category);
+        if (!TextUtils.isEmpty(nazvanie)&&!TextUtils.isEmpty(description)&&!TextUtils.isEmpty(fullPrice)&&!TextUtils.isEmpty(warranty)
+        &&!TextUtils.isEmpty(Category)){
             if (id != null)mBase.child(id).setValue(newTovarAdd);
 
 
@@ -126,5 +196,6 @@ public class TovarAddAct extends AppCompatActivity {
     public void goBack(View view) {
         Intent intent = new Intent(TovarAddAct.this, Glavnaya.class);
         startActivity(intent);
-    }
-}
+    }}
+
+

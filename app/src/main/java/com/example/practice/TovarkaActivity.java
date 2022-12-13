@@ -1,8 +1,10 @@
 package com.example.practice;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,8 +13,10 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TovarkaActivity extends AppCompatActivity {
@@ -31,21 +36,43 @@ public class TovarkaActivity extends AppCompatActivity {
     private List<String> listdata;
     private List<TovarAddClass> listTemp;
     private DatabaseReference mBase;
-    private String GROUPKEY = "Tovar";
+    private String GROUPKEY ="Asic";
     private TextView Countl;
-    private EditText FindText;
+    private SearchView Finder;
+    private Button SortBtn,SortClear;
+    private TextView textView14;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tovarka);
         init();
+        CatChoser();
+        Finder.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
 
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
+        
     }
 
     private void init(){
         tovarList = findViewById(R.id.tovarList);
-        FindText = findViewById(R.id.Finder);
+        textView14 = findViewById(R.id.textView14);
+        SortClear = findViewById(R.id.SortClear);
+        SortClear.setVisibility(View.GONE);
+        SortBtn = findViewById(R.id.SortBtn);
+        Finder = findViewById(R.id.Finder);
         listdata = new ArrayList<>();
         Countl = findViewById(R.id.Countl);
         listTemp = new ArrayList<TovarAddClass>();
@@ -56,12 +83,17 @@ public class TovarkaActivity extends AppCompatActivity {
         setOnclickItem();
 
 
+
+    }
+    private void CatChoser(){
+
     }
 
     private void getDataFromDB(){
         ValueEventListener vListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 if (listdata.size()<0)listdata.clear();
                 if (listTemp.size()<0)listTemp.clear();
                 for (DataSnapshot ds : snapshot.getChildren()){
@@ -86,17 +118,71 @@ public class TovarkaActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 TovarAddClass tovarAdd = listTemp.get(i);
-                Intent intent = new Intent(TovarkaActivity.this, FullTovarAct.class);
-                intent.putExtra("Tovar_imgTovar",tovarAdd.imgTovar);
-                intent.putExtra("Tovar_nazvanie",tovarAdd.nazvanie);
-                intent.putExtra("Tovar_description",tovarAdd.description);
-                intent.putExtra("tovar_fullprice",tovarAdd.fullprice);
-                startActivity(intent);
+                Intent is = new Intent(TovarkaActivity.this, FullTovarAct.class);
+                is.putExtra("tovar_imgTovar",tovarAdd.imgTovar);
+                is.putExtra("tovar_nazvanie",tovarAdd.nazvanie);
+                is.putExtra("tovar_description",tovarAdd.description);
+                is.putExtra("tovar_fullprice",tovarAdd.fullprice);
+                is.putExtra("tovar_warranty",tovarAdd.warranty);
+                is.putExtra("tovar_Category",tovarAdd.Category);
+                is.putExtra("iD",tovarAdd.id);
+                startActivity(is);
+
             }
         });
     }
 
 
+    public void SortByCat(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Выбор категории");
+        builder.setMessage("Выберите одну из категорий, для этого нажмите на нужную кнопку, список будет отсортировани под нужную вам категорию");
 
+        // add the buttons
+        builder.setPositiveButton("Асики", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                GROUPKEY= "Asic";
+                mBase = FirebaseDatabase.getInstance().getReference(GROUPKEY);
+                getDataFromDB();
+                textView14.setText("Асики");
+                SortBtn.setVisibility(View.GONE);
+                SortClear.setVisibility(View.VISIBLE);
+            }
+        });
+        builder.setNeutralButton("Банковские продукты", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                GROUPKEY= "Products";
+                textView14.setText("Банковские продукты");
+                mBase = FirebaseDatabase.getInstance().getReference(GROUPKEY);
+                getDataFromDB();
+                SortBtn.setVisibility(View.GONE);
+                SortClear.setVisibility(View.VISIBLE);
+            }
+        });
+        builder.setNegativeButton("Услуги", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                GROUPKEY= "Services";
+                textView14.setText("Услуги");
+                mBase = FirebaseDatabase.getInstance().getReference(GROUPKEY);
+                getDataFromDB();
+                SortBtn.setVisibility(View.GONE);
+                SortClear.setVisibility(View.VISIBLE);
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void SortClear(View view) {
+        getDataFromDB();
+        GROUPKEY= "";
+        adapter.clear();
+        adapter.notifyDataSetChanged();
+        SortBtn.setVisibility(View.VISIBLE);
+        SortClear.setVisibility(View.GONE);
+    }
 
 }
