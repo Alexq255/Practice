@@ -41,6 +41,7 @@ public class TovarkaActivity extends AppCompatActivity {
     private SearchView Finder;
     private Button SortBtn,SortClear;
     private TextView textView14;
+    private EditText minprice,maxprice;
 
 
 
@@ -73,13 +74,14 @@ public class TovarkaActivity extends AppCompatActivity {
         SortClear.setVisibility(View.GONE);
         SortBtn = findViewById(R.id.SortBtn);
         Finder = findViewById(R.id.Finder);
+
         listdata = new ArrayList<>();
         Countl = findViewById(R.id.Countl);
         listTemp = new ArrayList<TovarAddClass>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listdata);
         tovarList.setAdapter(adapter);
         mBase = FirebaseDatabase.getInstance().getReference(GROUPKEY);
-        getDataFromDB();
+
         setOnclickItem();
 
 
@@ -120,6 +122,8 @@ public class TovarkaActivity extends AppCompatActivity {
                 TovarAddClass tovarAdd = listTemp.get(i);
                 Intent is = new Intent(TovarkaActivity.this, FullTovarAct.class);
                 is.putExtra("tovar_imgTovar",tovarAdd.imgTovar);
+                is.putExtra("tovar_imgTovar2",tovarAdd.imgTovar1);
+                is.putExtra("tovar_imgTovar3",tovarAdd.imgTovar2);
                 is.putExtra("tovar_nazvanie",tovarAdd.nazvanie);
                 is.putExtra("tovar_description",tovarAdd.description);
                 is.putExtra("tovar_fullprice",tovarAdd.fullprice);
@@ -142,7 +146,10 @@ public class TovarkaActivity extends AppCompatActivity {
         builder.setPositiveButton("Асики", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                adapter.clear();
+                listTemp.clear();
                 GROUPKEY= "Asic";
+                tovarList.setAdapter(adapter);
                 mBase = FirebaseDatabase.getInstance().getReference(GROUPKEY);
                 getDataFromDB();
                 textView14.setText("Асики");
@@ -153,7 +160,10 @@ public class TovarkaActivity extends AppCompatActivity {
         builder.setNeutralButton("Банковские продукты", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                adapter.clear();
+                listTemp.clear();
                 GROUPKEY= "Products";
+                tovarList.setAdapter(adapter);
                 textView14.setText("Банковские продукты");
                 mBase = FirebaseDatabase.getInstance().getReference(GROUPKEY);
                 getDataFromDB();
@@ -164,7 +174,10 @@ public class TovarkaActivity extends AppCompatActivity {
         builder.setNegativeButton("Услуги", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                adapter.clear();
+                listTemp.clear();
                 GROUPKEY= "Services";
+                tovarList.setAdapter(adapter);
                 textView14.setText("Услуги");
                 mBase = FirebaseDatabase.getInstance().getReference(GROUPKEY);
                 getDataFromDB();
@@ -177,12 +190,60 @@ public class TovarkaActivity extends AppCompatActivity {
     }
 
     public void SortClear(View view) {
-        getDataFromDB();
-        GROUPKEY= "";
-        adapter.clear();
+
+
         adapter.notifyDataSetChanged();
         SortBtn.setVisibility(View.VISIBLE);
+        adapter.clear();
+        listTemp.clear();
+        tovarList.setAdapter(null);
         SortClear.setVisibility(View.GONE);
     }
+public void priceFilter(){
+    ValueEventListener vListenerr = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            if (listdata.size()>0)listdata.clear();
+            if (listTemp.size()>0)listTemp.clear();
 
-}
+            for (DataSnapshot ds : snapshot.getChildren()) {
+
+                if (maxprice.getText().toString().isEmpty() || minprice.getText().toString().isEmpty()) {
+                    TovarAddClass tovar = ds.getValue(TovarAddClass.class);
+                    assert tovar != null;
+                    listdata.add(tovar.nazvanie);
+                    listTemp.add(tovar);
+                } else {
+                    TovarAddClass tovar = ds.getValue(TovarAddClass.class);
+                    assert tovar != null;
+                    int price = Integer.parseInt(tovar.fullprice);
+                    int maxpricer = Integer.parseInt(maxprice.getText().toString());
+                    int minpricer = Integer.parseInt(minprice.getText().toString());
+                    if (price >= minpricer && price <= maxpricer) {
+                        listdata.add(tovar.nazvanie);
+                        listTemp.add(tovar);
+                    }
+
+                    assert tovar != null;
+                    listdata.add(tovar.nazvanie);
+                    listTemp.add(tovar);
+
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+    }
+    public void Accept(View view) {
+
+
+    };}
+

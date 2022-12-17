@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 public class ShowDataActivity extends AppCompatActivity {
-private TextView twName,twSecname,twMail;
+private TextView fullop,shortop,twStartDate,twEndDate,nazvanie;
 private ImageView imgBD;
 
     @Override
@@ -25,9 +24,11 @@ private ImageView imgBD;
 
     }
     private void init(){
-        twName = findViewById(R.id.twName);
-        twSecname = findViewById(R.id.twdescription);
-        twMail = findViewById(R.id.twNazavanie);
+        nazvanie = findViewById(R.id.Nazvanie);
+        twStartDate = findViewById(R.id.twStartDate);
+        twEndDate = findViewById(R.id.twEndDate);
+        fullop= findViewById(R.id.fullop);
+        shortop = findViewById(R.id.shortop);
         imgBD = findViewById(R.id.imgTovar);
 
 
@@ -36,9 +37,11 @@ private ImageView imgBD;
         Intent i = getIntent();
         if (i!=null){
             Picasso.get().load(i.getStringExtra("user_image_id")).into(imgBD);
-            twMail.setText(i.getStringExtra("user_name"));
-            twSecname.setText(i.getStringExtra("user_secname"));
-            twName.setText(i.getStringExtra("user_email"));
+            fullop.setText(i.getStringExtra("user_fullOp"));
+            shortop.setText(i.getStringExtra("user_shortOp"));
+            nazvanie.setText(i.getStringExtra("user_nazvanie"));
+            twStartDate.setText(i.getStringExtra("user_dateStart"));
+            twEndDate.setText(i.getStringExtra("user_dateEnd"));
 
         }
     }

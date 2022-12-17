@@ -43,11 +43,11 @@ import java.util.List;
 public class ChangeActivity extends AppCompatActivity {
     private EditText twnazvanie2,twdescription2,twfullprice2,ShopCounter2,twCategory2,twWarranty2,counter2;
     private ImageView imgTovar2;
-    private String SHOPCART = "Asic",ids;
+    private String SHOPCART = "Products",ids;
     private DatabaseReference mBase;
     private DatabaseReference Cbbase;
     private FirebaseAuth mAuth;
-    private Uri uploadUri;
+    private Uri uploadUri,uploadUri2,uploadUri3;
     private StorageReference mStorageRef;
     private ListView CountView;
     private ArrayAdapter<String> adapter;
@@ -174,7 +174,7 @@ public class ChangeActivity extends AppCompatActivity {
         String fullPrice = twfullprice2.getText().toString();
         String warranty = twWarranty2.getText().toString();
         String category = twCategory2.getText().toString();
-        TovarAddClass Cart = new TovarAddClass(id,nazvanie,description,fullPrice,uploadUri.toString(),warranty,category);
+        TovarAddClass Cart = new TovarAddClass(id,nazvanie,description,fullPrice,uploadUri.toString(),warranty,category,uploadUri2.toString(),uploadUri3.toString());
         if (!TextUtils.isEmpty(nazvanie)&&!TextUtils.isEmpty(description)&&!TextUtils.isEmpty(fullPrice)){
             if (id != null)mBase.child(id).setValue(Cart);
 
@@ -188,7 +188,7 @@ public class ChangeActivity extends AppCompatActivity {
 
     public void SaveDate(View view) {
 
-        uploadImage();
+        saveData();
     }
 
 
@@ -208,8 +208,18 @@ public class ChangeActivity extends AppCompatActivity {
         }).addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
-                uploadUri = task.getResult();
-                saveData();
+                if(uploadUri == null){
+                    uploadUri = task.getResult();
+                    Toast.makeText(ChangeActivity.this,"Добавлена первая картинка!!",Toast.LENGTH_SHORT).show();
+                }
+                else if(uploadUri2 == null) {
+                    uploadUri2 = task.getResult();
+                    Toast.makeText(ChangeActivity.this,"Добавлена вторая картинка!!",Toast.LENGTH_SHORT).show();
+                }
+                else if(uploadUri3 == null){
+                    uploadUri3 = task.getResult();
+                    Toast.makeText(ChangeActivity.this,"Добавлена третья картинка!!",Toast.LENGTH_SHORT).show();
+                }
 
             }
 
@@ -226,7 +236,7 @@ public class ChangeActivity extends AppCompatActivity {
     }
 
     public void SaveAll(View view) {
-        uploadImage();
+        saveData();
     }
 
     public void ImgChoose(View view) {
@@ -234,6 +244,7 @@ public class ChangeActivity extends AppCompatActivity {
         intentChooser.setType("image/*");
         intentChooser.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intentChooser,1);
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -247,5 +258,9 @@ public class ChangeActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    public void ImgAdd1(View view) {
+        uploadImage();
     }
 }

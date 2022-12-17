@@ -45,7 +45,7 @@ import java.util.UUID;
 
 public class Glavnaya extends AppCompatActivity {
 
-    private EditText EditName,EditSurname,EditScam;
+    private EditText EditName,EditSurname,EditScam,EditStartDate,EditEndDate;
     private DatabaseReference mBase;
     private String USERKEY = "User";
     private ImageView loggout_btn;
@@ -64,6 +64,8 @@ public class Glavnaya extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glavnaya);
         EditName = findViewById(R.id.EditName);
+        EditStartDate = findViewById(R.id.EditStartDate);
+        EditEndDate = findViewById(R.id.EditEndDate);
         EditSurname = findViewById(R.id.EditSurname);
         EditScam = findViewById(R.id.EditScam);
         mBase = FirebaseDatabase.getInstance().getReference(USERKEY);
@@ -80,11 +82,13 @@ public class Glavnaya extends AppCompatActivity {
     private void saveUser()
     {
         String id = mBase.push().getKey();
-        String name = EditName.getText().toString();
-        String secname = EditSurname.getText().toString();
-        String email = EditScam.getText().toString();
-        UserAdd newUserAdd = new UserAdd(id,name,secname,email,uploadUri.toString());
-        if (!TextUtils.isEmpty(name)&&!TextUtils.isEmpty(secname)&&!TextUtils.isEmpty(email)){
+        String nazvanie = EditName.getText().toString();
+        String shortOp = EditSurname.getText().toString();
+        String fullOp = EditScam.getText().toString();
+        String dateStart = EditStartDate.getText().toString();
+        String  dateEnd= EditEndDate.getText().toString();
+        UserAdd newUserAdd = new UserAdd(id,nazvanie,uploadUri.toString(),shortOp,fullOp,dateStart,dateEnd);
+        if (!TextUtils.isEmpty(nazvanie)&&!TextUtils.isEmpty(shortOp)&&!TextUtils.isEmpty(fullOp)){
             if (id != null)mBase.child(id).setValue(newUserAdd);
 
 

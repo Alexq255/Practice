@@ -115,12 +115,13 @@
         app:layout_constraintBottom_toTopOf="@+id/twNazavanie2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.47000003" />
 
     <ImageView
         android:id="@+id/imgTovar2"
-        android:layout_width="257dp"
-        android:layout_height="153dp"
+        android:layout_width="260dp"
+        android:layout_height="112dp"
         android:foregroundGravity="left"
         app:layout_column="0"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -157,7 +158,7 @@
         android:text="Name"
         app:layout_constraintBottom_toTopOf="@+id/twCategory2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintHorizontal_bias="0.955"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/twNazavanie2" />
 
@@ -247,5 +248,18 @@
         app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.077" />
+        app:layout_constraintVertical_bias="0.073" />
+
+    <Button
+        android:id="@+id/button18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#3F51B5"
+        android:onClick="ImgAdd1"
+        android:text="Сохранить картинку"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.724" />
 </androidx.constraintlayout.widget.ConstraintLayout>

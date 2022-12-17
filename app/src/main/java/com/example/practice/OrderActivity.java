@@ -40,7 +40,7 @@ import java.util.Locale;
 import java.util.PrimitiveIterator;
 
 public class OrderActivity extends AppCompatActivity {
-    private TextView twnazvanie1,idUserApiInfo,IdUserApi,StatusText,textView24,textView22,twdescription1,twfullprice1,ShopCounter1,twCategory1,twWarranty1,twCountln,twAdress,datas,userid,OrderPrice;
+    private TextView twnazvanie1,idUserApiInfo,twfullprice4,twfullPrice12,IdUserApi,StatusText,textView24,textView22,twdescription1,twfullprice1,ShopCounter1,twCategory1,twWarranty1,twCountln,twAdress,datas,userid,OrderPrice;
     private ImageView imgTovar1;
     private CheckBox CheckBoxOrd;
     private String ORDERTOVAR = "Orders",dateText,timeText;
@@ -70,7 +70,7 @@ public class OrderActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-              if (OrderPrice.equals("")){
+              if (twfullprice4.equals("")){
 
               }else{
                   Computations();
@@ -93,11 +93,13 @@ public class OrderActivity extends AppCompatActivity {
         idUserApiInfo = findViewById(R.id.idUserApiInfo);
         textView24 = findViewById(R.id.textView24);
         IdUserApi = findViewById(R.id.IdUserApi);
+        twfullPrice12 = findViewById(R.id.twfullPrice12);
         StatusText = findViewById(R.id.StatusText);
         CheckBoxOrd = findViewById(R.id.checkBoxOrd);
         twnazvanie1 = findViewById(R.id.twNazavanie1);
         twdescription1 = findViewById(R.id.twdescription1);
         twfullprice1 = findViewById(R.id.twfullprice1);
+        twfullprice4 = findViewById(R.id.twfullprice4);
         twCategory1 = findViewById(R.id.twCategory1);
         twWarranty1 = findViewById(R.id.twWarranty1);
         twCountln = findViewById(R.id.twCountLn);
@@ -145,7 +147,7 @@ public class OrderActivity extends AppCompatActivity {
     }
 private void Computations(){
 
-        int a = Integer.parseInt(twfullprice1.getText().toString());
+        int a = Integer.parseInt(twfullprice4.getText().toString());
 
         int b = Integer.parseInt(twCountln.getText().toString());
         int c = a*b;
@@ -159,9 +161,15 @@ private void Computations(){
             Picasso.get().load(intent.getStringExtra("Cart_imgTovar")).into(imgTovar1);
             twdescription1.setText(intent.getStringExtra("Cart_description"));
             twnazvanie1.setText(intent.getStringExtra("Cart_nazvanie"));
-            twfullprice1.setText(intent.getStringExtra("Cart_fullprice"));
+            twfullprice4.setText(intent.getStringExtra("Cart_fullprice"));
             twWarranty1.setText(intent.getStringExtra("Cart_warranty"));
+            twfullPrice12.setText(twfullprice1.getText().toString());
+            twWarranty1.setText(intent.getStringExtra("Cart_status"));
             twCategory1.setText(intent.getStringExtra("Cart_Category"));
+            twAdress.setText(intent.getStringExtra("Cart_adress"));
+            twfullprice1.setText(intent.getStringExtra("Cart_itogPrice"));
+            OrderPrice.setText(intent.getStringExtra("Cart_itogPrice"));
+            twCountln.setText(intent.getStringExtra("Cart_countLn"));
             IdUserApi.setText(intent.getStringExtra("Cart_id"));
             String Privelegy =(intent.getStringExtra("Admire"));
             if (Privelegy!=null){
@@ -218,7 +226,7 @@ private void Computations(){
         String id = mBase.push().getKey();
         String nazvanie = twnazvanie1.getText().toString();
         String description = twdescription1.getText().toString();
-        String fullPrice = twfullprice1.getText().toString();
+        String fullPrice = twfullprice4.getText().toString();
         String warranty = twWarranty1.getText().toString();
         String category = twCategory1.getText().toString();
         String adress = twAdress.getText().toString();
@@ -228,12 +236,10 @@ private void Computations(){
         String ItogPrice = OrderPrice.getText().toString();
 
         String Status ="Новый заказ";
-        if (StatusText!=null){
-            Status=StatusText.getText().toString();
-        }
 
 
-        OrderClass Cart = new OrderClass(id,nazvanie,description,fullPrice,uploadUri.toString(),warranty,category,adress,countLn,dateTime,idUser,ItogPrice,Status);
+
+        OrderClass Cart = new OrderClass(id,nazvanie,description,fullPrice,warranty,category,adress,countLn,dateTime,idUser,ItogPrice,Status);
         if (!TextUtils.isEmpty(nazvanie)&&!TextUtils.isEmpty(description)&&!TextUtils.isEmpty(fullPrice)){
             if (id != null)mBase.child(id).setValue(Cart);
 
@@ -286,7 +292,7 @@ private void Computations(){
         AlertDialog.Builder builder = new AlertDialog.Builder(OrderActivity.this);
         builder.setTitle("Изменить статус")
                 .setCancelable(false)
-                .setIcon(R.drawable.cart)
+                .setIcon(R.drawable.shopicon)
                 .setMessage("Выберите один из доступных статусов, он будет изменен в таблице БД, не забудьте нажать сохранить перед выходом!")
                 .setPositiveButton("Отменен",
 
@@ -321,15 +327,16 @@ private void Computations(){
     }
 
     public void SaveAdminData(View view) {
-        uploadImageAdmin();
+        saveDataForAdmin();
     }
     private void saveDataForAdmin()
     {
+
         String id = IdUserApi.getText().toString();
         String nazvanie = twnazvanie1.getText().toString();
         String description = twdescription1.getText().toString();
-        String fullPrice = twfullprice1.getText().toString();
-        String warranty = twWarranty1.getText().toString();
+        String fullPrice = twfullprice4.getText().toString();
+        String warranty = "Гарантия 3 мес";
         String category = twCategory1.getText().toString();
         String adress = twAdress.getText().toString();
         String countLn = twCountln.getText().toString();
@@ -343,38 +350,15 @@ private void Computations(){
         }
 
 
-        OrderClass Cart = new OrderClass(id,nazvanie,description,fullPrice,uploadUri.toString(),warranty,category,adress,countLn,dateTime,idUser,ItogPrice,Status);
-        if (!TextUtils.isEmpty(nazvanie)&&!TextUtils.isEmpty(description)&&!TextUtils.isEmpty(fullPrice)){
-            if (id != null)mBase.child(id).setValue(Cart);
+        OrderClass Cart = new OrderClass(id,nazvanie,description,fullPrice,warranty,category,adress,countLn,dateTime,idUser,ItogPrice,Status);
+        mBase.child(id).setValue(Cart);
 
 
-        }else{
-            Toast.makeText(OrderActivity.this,"Возможно некоторые поля пустые!",Toast.LENGTH_SHORT).show();
-        }
+
     }
-    private void uploadImageAdmin() {
-        Bitmap bitmap = ((BitmapDrawable) imgTovar1.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] byteArray = baos.toByteArray();
-        StorageReference mRef = mStorageRef.child(System.currentTimeMillis() + "MyImg");
-        UploadTask up = mRef.putBytes(byteArray);
-        Task<Uri> task = up.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                return mRef.getDownloadUrl();
 
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                uploadUri = task.getResult();
-                saveDataForAdmin();
-
-            }
-
-
-        });
-
+    public void backcart(View view) {
+        Intent intent = new Intent(OrderActivity.this, ShopCartAct.class);
+        startActivity(intent);
     }
 }

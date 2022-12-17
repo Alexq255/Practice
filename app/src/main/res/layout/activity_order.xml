@@ -29,6 +29,7 @@
         android:layout_width="373dp"
         android:layout_height="60dp"
         android:backgroundTint="#E91E63"
+        android:onClick="backcart"
         android:text="Вернуться к корзине"
         android:textSize="16sp"
 
@@ -57,8 +58,8 @@
 
     <TextView
         android:id="@+id/twWarranty1"
-        android:layout_width="283dp"
-        android:layout_height="44dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:text="TextView"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -118,8 +119,8 @@
 
     <TextView
         android:id="@+id/twdescription1"
-        android:layout_width="238dp"
-        android:layout_height="115dp"
+        android:layout_width="242dp"
+        android:layout_height="137dp"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_column="1"
@@ -171,14 +172,48 @@
         android:textColor="#FFFFFF"
         android:textSize="34sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_column="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.357"
+        app:layout_constraintVertical_bias="0.379"
         app:layout_row="0" />
+
+    <TextView
+        android:id="@+id/twfullprice4"
+        android:layout_width="118dp"
+        android:layout_height="48dp"
+        android:background="#000000"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_column="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.379"
+        app:layout_row="0" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="106dp"
+        android:layout_height="47dp"
+        android:gravity="center"
+        android:text="Цена в $"
+        android:textColor="#FFC107"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.577"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.38" />
 
     <CheckBox
         android:id="@+id/checkBoxOrd"
@@ -316,5 +351,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.892" />
+
+    <TextView
+        android:id="@+id/twfullPrice12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="297dp"
+        tools:layout_editor_absoluteY="619dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

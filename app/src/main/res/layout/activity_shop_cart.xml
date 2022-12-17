@@ -23,6 +23,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.045" />
 
+    <TextView
+        android:id="@+id/KorzinkaTitle"
+        android:layout_width="389dp"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:text="Корзина товаров"
+        android:textColor="#F44336"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
+
     <ListView
         android:id="@+id/listkorzina"
         android:layout_width="407dp"

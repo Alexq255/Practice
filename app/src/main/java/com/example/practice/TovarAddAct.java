@@ -42,7 +42,7 @@ public class TovarAddAct extends AppCompatActivity {
     private TextView twAccount;
     private Button saveAll,chooseImg;
     private ImageView imgViewAdd;
-    private Uri uploadUri;
+    private Uri uploadUri,uploadUri2,uploadUri3;
     private StorageReference mStorageRef;
     private CheckBox CheckerAsic,CheckerProducts,CheckerSevices;
 
@@ -132,7 +132,7 @@ public class TovarAddAct extends AppCompatActivity {
         String warranty = editWarranty.getText().toString();
         String Category = editCategory.getText().toString();
 
-        TovarAddClass newTovarAdd = new TovarAddClass(id,nazvanie,description,fullPrice,uploadUri.toString(),warranty,Category);
+        TovarAddClass newTovarAdd = new TovarAddClass(id,nazvanie,description,fullPrice,uploadUri.toString(),warranty,Category,uploadUri2.toString(),uploadUri3.toString());
         if (!TextUtils.isEmpty(nazvanie)&&!TextUtils.isEmpty(description)&&!TextUtils.isEmpty(fullPrice)&&!TextUtils.isEmpty(warranty)
         &&!TextUtils.isEmpty(Category)){
             if (id != null)mBase.child(id).setValue(newTovarAdd);
@@ -145,14 +145,16 @@ public class TovarAddAct extends AppCompatActivity {
 
     public void SaveDate(View view) {
 
-        uploadImage();
+        saveData();
     }
 
     public void ChooseIMG(View view) {
+
         Intent intentChooser = new Intent();
         intentChooser.setType("image/*");
         intentChooser.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intentChooser,1);
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -183,8 +185,18 @@ public class TovarAddAct extends AppCompatActivity {
         }).addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
-                uploadUri = task.getResult();
-                saveData();
+                if(uploadUri == null){
+                    uploadUri = task.getResult();
+                    Toast.makeText(TovarAddAct.this,"Добавлена первая картинка!!",Toast.LENGTH_SHORT).show();
+                }
+                else if(uploadUri2 == null) {
+                    uploadUri2 = task.getResult();
+                    Toast.makeText(TovarAddAct.this,"Добавлена вторая картинка!!",Toast.LENGTH_SHORT).show();
+                }
+                else if(uploadUri3 == null){
+                    uploadUri3 = task.getResult();
+                    Toast.makeText(TovarAddAct.this,"Добавлена третья картинка!!",Toast.LENGTH_SHORT).show();
+                }
 
             }
 
@@ -196,6 +208,11 @@ public class TovarAddAct extends AppCompatActivity {
     public void goBack(View view) {
         Intent intent = new Intent(TovarAddAct.this, Glavnaya.class);
         startActivity(intent);
-    }}
+    }
+
+    public void SaveIMG(View view) {
+        uploadImage();
+    }
+}
 
 

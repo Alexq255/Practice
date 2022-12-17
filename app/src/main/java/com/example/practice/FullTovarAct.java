@@ -37,7 +37,7 @@ import java.util.List;
 
 public class FullTovarAct extends AppCompatActivity {
     private TextView twnazvanie,twdescription,twfullprice,ShopCounter,twCategory,twWarranty,counter,idZapiski;
-    private ImageView imgTovar;
+    private ImageView imgTovar,imgTovar4,imgTovar5;
     private String SHOPCART = "Cart";
     private DatabaseReference mBase;
     private DatabaseReference Cbbase;
@@ -68,8 +68,8 @@ public class FullTovarAct extends AppCompatActivity {
 
     private void init(){
         ShopCounter = findViewById(R.id.ShopCounter);
-        twnazvanie = findViewById(R.id.twNazavanie);
-        twdescription = findViewById(R.id.twdescription);
+        twnazvanie = findViewById(R.id.twStartDate);
+        twdescription = findViewById(R.id.shortop);
         idZapiski = findViewById(R.id.idZapiski);
         idZapiski.setVisibility(View.GONE);
 
@@ -78,6 +78,8 @@ public class FullTovarAct extends AppCompatActivity {
         twWarranty = findViewById(R.id.twWarranty);
         counter = findViewById(R.id.Counter);
         imgTovar = findViewById(R.id.imgTovar);
+        imgTovar4 = findViewById(R.id.imgTovar4);
+        imgTovar5 = findViewById(R.id.imgTovar5);
         mBase = FirebaseDatabase.getInstance().getReference(SHOPCART);
         mStorageRef = FirebaseStorage.getInstance().getReference("Image_db");
         Cbbase = FirebaseDatabase.getInstance().getReference();
@@ -89,6 +91,8 @@ public class FullTovarAct extends AppCompatActivity {
         Intent is = getIntent();
         if (is!=null){
             Picasso.get().load(is.getStringExtra("tovar_imgTovar")).into(imgTovar);
+            Picasso.get().load(is.getStringExtra("tovar_imgTovar2")).into(imgTovar4);
+            Picasso.get().load(is.getStringExtra("tovar_imgTovar3")).into(imgTovar5);
             twnazvanie.setText(is.getStringExtra("tovar_nazvanie"));
             twdescription.setText(is.getStringExtra("tovar_description"));
             twfullprice.setText(is.getStringExtra("tovar_fullprice"));
@@ -164,7 +168,7 @@ public class FullTovarAct extends AppCompatActivity {
         String fullPrice = twfullprice.getText().toString();
         String warranty = twWarranty.getText().toString();
         String category = twCategory.getText().toString();
-        TovarAddClass Cart = new TovarAddClass(id,nazvanie,description,fullPrice,uploadUri.toString(),warranty,category);
+        Korzina Cart = new Korzina(id,nazvanie,description,fullPrice,uploadUri.toString(),warranty,category);
         if (!TextUtils.isEmpty(nazvanie)&&!TextUtils.isEmpty(description)&&!TextUtils.isEmpty(fullPrice)){
             if (id != null)mBase.child(id).setValue(Cart);
 

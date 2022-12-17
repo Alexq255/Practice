@@ -36,7 +36,7 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 
 public class GlavnayaUser extends AppCompatActivity {
-    private EditText EditName, EditSurname, EditScam;
+    private EditText EditName, EditSurname, EditScam,EditStartDate,EditEndDate;
     private DatabaseReference mBase;
     private String USERKEY = "User";
     private ImageView loggout_btn,loggout_btn2;
@@ -55,6 +55,8 @@ public class GlavnayaUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glavnaya_user);
+        EditStartDate = findViewById(R.id.EditStartDate);
+        EditEndDate = findViewById(R.id.EditEndDate);
         EditName = findViewById(R.id.EditName);
         EditSurname = findViewById(R.id.EditSurname);
         EditScam = findViewById(R.id.EditScam);
@@ -91,7 +93,9 @@ public class GlavnayaUser extends AppCompatActivity {
         String name = EditName.getText().toString();
         String secname = EditSurname.getText().toString();
         String email = EditScam.getText().toString();
-        UserAdd newUserAdd = new UserAdd(id, name, secname, email, uploadUri.toString());
+        String dateStart = EditStartDate.getText().toString();
+        String  dateEnd= EditEndDate.getText().toString();
+        UserAdd newUserAdd = new UserAdd(id, name, secname, email, uploadUri.toString(),dateStart,dateEnd);
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(secname) && !TextUtils.isEmpty(email)) {
             if (id != null) mBase.child(id).setValue(newUserAdd);
 

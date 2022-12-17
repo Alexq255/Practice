@@ -212,4 +212,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.739" />
 
+    <Button
+        android:id="@+id/button17"
+        android:layout_width="96dp"
+        android:layout_height="65dp"
+        android:onClick="SaveIMG"
+        android:text="Сохранить"
+        app:layout_constraintBottom_toBottomOf="@+id/saveAll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.288"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.85" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

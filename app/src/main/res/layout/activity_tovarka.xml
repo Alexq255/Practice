@@ -38,8 +38,8 @@
 
     <ListView
         android:id="@+id/tovarList"
-        android:layout_width="407dp"
-        android:layout_height="554dp"
+        android:layout_width="401dp"
+        android:layout_height="542dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
@@ -47,10 +47,10 @@
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.625"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.834">
+        app:layout_constraintVertical_bias="0.802">
 
 
     </ListView>

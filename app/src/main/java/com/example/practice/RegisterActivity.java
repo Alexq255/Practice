@@ -36,7 +36,7 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 private EditText email_Register;
-private EditText password_Register, Name_Register,Phone_Register;
+private EditText password_Register, Name_Register,Phone_Register,town_Register,country_Register;
 private Button btn_register;
 private FirebaseAuth mAuth;
 private Boolean valid = true;
@@ -57,6 +57,8 @@ CheckBox checker;
         Name_Register = findViewById(R.id.Name_Register);
         Phone_Register = findViewById(R.id.Phone_Register);
         password_Register = findViewById(R.id.password_register);
+        town_Register = findViewById(R.id.town_Register);
+        country_Register = findViewById(R.id.country_Register);
         btn_register = findViewById(R.id.btn_register);
         ProInit();
 
@@ -94,13 +96,15 @@ CheckBox checker;
                                     Map<String,Object> userinfo = new HashMap<>();
                                     userinfo.put("FullName",Name_Register.getText().toString());
                                     userinfo.put("Phone",Phone_Register.getText().toString());
+                                    userinfo.put("Town",country_Register.getText().toString());
+                                    userinfo.put("Country",town_Register.getText().toString());
                                     userinfo.put("isUser","1");
                                     df.set(userinfo);
                                     if (task.isSuccessful()){
 
-                                        Intent intent = new Intent(RegisterActivity.this, Glavnaya.class);
+                                        Intent intent = new Intent(RegisterActivity.this, GlavnayaUser.class);
                                         FirebaseUser cUser = mAuth.getCurrentUser();
-                                        intent.putExtra("UserData",cUser.toString());
+                                        intent.putExtra("UserData","Пользователь:"+cUser.getEmail().toString());
                                         startActivity(intent);
 
                                     }else{

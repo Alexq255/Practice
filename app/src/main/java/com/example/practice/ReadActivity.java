@@ -50,6 +50,7 @@ private TextView textView9;
 
             @Override
             public boolean onQueryTextChange(String s) {
+
                 adapter.getFilter().filter(s);
                 return false;
             }
@@ -64,6 +65,7 @@ private TextView textView9;
         listView.setAdapter(adapter);
         mBase = FirebaseDatabase.getInstance().getReference(USERKEY);
         textView9 = findViewById(R.id.textView9);
+
     }
     private void getDataFromDB(){
         ValueEventListener vListener = new ValueEventListener() {
@@ -74,7 +76,7 @@ private TextView textView9;
                 for (DataSnapshot ds : snapshot.getChildren()){
                     UserAdd user = ds.getValue(UserAdd.class);
                     assert user != null;
-                    listdata.add(user.name);
+                    listdata.add(user.nazvanie);
                     listTemp.add(user);
                 }
                 adapter.notifyDataSetChanged();
@@ -93,10 +95,12 @@ private TextView textView9;
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             UserAdd userAdd = listTemp.get(i);
                 Intent intent = new Intent(ReadActivity.this, ShowDataActivity.class);
-                intent.putExtra("user_name",userAdd.name);
-                intent.putExtra("user_secname",userAdd.secname);
-                intent.putExtra("user_email",userAdd.email);
+                intent.putExtra("user_nazvanie",userAdd.nazvanie);
+                intent.putExtra("user_shortOp",userAdd.shortOp);
+                intent.putExtra("user_fullOp",userAdd.fullOp);
                 intent.putExtra("user_image_id",userAdd.image_id);
+                intent.putExtra("user_dateStart",userAdd.dateStart);
+                intent.putExtra("user_dateEnd",userAdd.dateEnd);
                 startActivity(intent);
             }
         });

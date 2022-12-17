@@ -142,7 +142,7 @@ saveData();
         String Status ="Новый заказ";
 
 
-        OrderClass Cart = new OrderClass(id,nazvanie,description,fullPrice,uploadUri.toString(),warranty,category,adress,countLn,dateTime,idUser,ItogPrice,Status);
+        OrderClass Cart = new OrderClass(id,nazvanie,description,fullPrice,warranty,category,adress,countLn,dateTime,idUser,ItogPrice,Status);
         if (!TextUtils.isEmpty(nazvanie)&&!TextUtils.isEmpty(description)&&!TextUtils.isEmpty(fullPrice)){
             if (id != null)mBase.child(id).setValue(Cart);
 
